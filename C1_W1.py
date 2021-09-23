@@ -515,10 +515,10 @@ def predict_tweet(tweet, freqs, theta):
     ### START CODE HERE (REPLACE INSTANCES OF 'None' with your code) ###
     
     # extract the features of the tweet and store it into x
-    x = None
+    x = extract_features(tweet, freqs)
     
     # make the prediction using x and theta
-    y_pred = None
+    y_pred = sigmoid(np.dot(x, theta))
     
     ### END CODE HERE ###
     
@@ -593,14 +593,16 @@ def test_logistic_regression(test_x, test_y, freqs, theta):
         
         if y_pred > 0.5:
             # append 1.0 to the list
-            None
+            y_hat.append(1)
         else:
             # append 0 to the list
-            None
+            y_hat.append(0)
 
     # With the above implementation, y_hat is a list, but test_y is (m,1) array
     # convert both to one-dimensional arrays in order to compare them using the '==' operator
-    accuracy = None
+    y_hat = np.asarray(y_hat)
+    test_y = np.squeeze(test_y)
+    accuracy = (y_hat == test_y).sum()/len(test_x)
 
     ### END CODE HERE ###
     
@@ -648,3 +650,5 @@ else:
     print('Negative sentiment')
 
 
+
+# %%
